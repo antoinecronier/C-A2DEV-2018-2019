@@ -67,6 +67,14 @@ namespace WpfApp2
         private void BtnCreateClass1_Click(object sender, RoutedEventArgs e)
         {
             Class1 class1 = new Class1(this.txtBDataClass1.Text);
+
+            System.Console.WriteLine(class1.Data);
+            System.Console.WriteLine((class1 as MotherClass1).Data);
+            System.Console.WriteLine((class1 as Interface1).MyProperty);
+
+            Interface1 i1 = new Class1();
+            (i1 as Class1).Lastname = "";
+
             class1s.Add(class1);
             System.Console.WriteLine(class1.Data);
         }

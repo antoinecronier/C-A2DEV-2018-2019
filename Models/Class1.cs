@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.Models
 {
-    public class Class1
+    public class Class1 : MotherClass1, Interface1
     {
         #region StaticVariables
         public static String maData = "toto";
@@ -21,7 +21,7 @@ namespace WpfApp2.Models
 
         #region Attributs
         private long id;
-        private String data;
+        private new String data;
         #endregion
 
         #region Properties
@@ -31,28 +31,29 @@ namespace WpfApp2.Models
             set { id = value; }
         }
 
-        public String Data
+        public new String Data
         {
             get { return data; }
             set { data = value; }
         }
+
+        public int MyProperty { get; set; }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Class1()
+        public Class1() : base("toto","tata")
         {
-
         }
 
-        public Class1(string data)
+        public Class1(string data) : base(data, data)
         {
             this.data = data;
         }
 
-        public Class1(long id, string data)
+        public Class1(long id, string data) : this()
         {
             this.id = id;
             this.data = data;
@@ -69,6 +70,31 @@ namespace WpfApp2.Models
         public void MaFonction()
         {
             this.Id = 12;
+            this.data = "test";
+            this.test2 = "";
+            base.test2 = "";
+            //this.test1 = "10";
+            this.F2();
+            //this.F1();
+        }
+
+        public override void F2()
+        {
+            base.F2();
+        }
+
+        public override void F3()
+        {
+        }
+
+        public void F4()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool F5()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
