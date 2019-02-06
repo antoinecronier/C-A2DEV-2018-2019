@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Database\ApplicationDbContext.cs" />
     <Compile Include="Database\DTO\Class1Dto.cs" />
+    <Compile Include="Database\DTO\Class2Dto.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

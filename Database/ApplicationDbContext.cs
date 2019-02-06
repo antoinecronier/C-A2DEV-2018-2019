@@ -23,6 +23,7 @@ namespace WpfApp2.Database
 
         #region Attributs
         private DbSet<Class1Dto> class1Dtos;
+        private DbSet<Class2Dto> class2Dtos;
         #endregion
 
         #region Properties
@@ -30,6 +31,12 @@ namespace WpfApp2.Database
         {
             get { return class1Dtos; }
             set { class1Dtos = value; }
+        }
+
+        public DbSet<Class2Dto> Class2DtoDbSet
+        {
+            get { return class2Dtos; }
+            set { class2Dtos = value; }
         }
         #endregion
 
@@ -39,7 +46,7 @@ namespace WpfApp2.Database
         /// </summary>
         public ApplicationDbContext()
         {
-
+            DevResetDatabase();
         }
         #endregion
 
@@ -47,6 +54,14 @@ namespace WpfApp2.Database
         #endregion
 
         #region Functions
+        private void DevResetDatabase()
+        {
+            if (!this.Database.CompatibleWithModel(false))
+            {
+                this.Database.Delete();
+                this.Database.Create();
+            }
+        }
         #endregion
 
         #region Events

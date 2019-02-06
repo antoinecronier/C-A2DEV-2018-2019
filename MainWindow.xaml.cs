@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 using WpfApp2.Database;
 using WpfApp2.Database.DTO;
 using WpfApp2.Models;
@@ -95,16 +96,29 @@ namespace WpfApp2
             {
                 Class1Dto myDto = new Class1Dto();
                 myDto.Data = "bonjour";
+                myDto.IntArray = new int[]{1,20,30,7};
+                Class2Dto subDto = new Class2Dto();
+                subDto.Data = "sub data";
+                myDto.Class2Dtos.Add(subDto);
 
                 db.Class1DtoDbSet.Add(myDto);
 
                 db.SaveChanges();
 
                 System.Console.WriteLine("--------------------------");
+                System.Console.WriteLine("Class1Dto");
 
-                foreach (var item in db.Class1DtoDbSet)
+                foreach (var item in db.Class1DtoDbSet.Include(c => c.Class2Dtos))
                 {
-                    System.Console.WriteLine(item.Data);
+                    System.Console.WriteLine(item.ToString());
+                }
+
+                System.Console.WriteLine("--------------------------");
+                System.Console.WriteLine("Class2Dto");
+
+                foreach (var item in db.Class2DtoDbSet)
+                {
+                    System.Console.WriteLine(item.ToString());
                 }
             }
         }
