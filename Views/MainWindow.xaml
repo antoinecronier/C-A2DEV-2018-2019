@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfApp2.MainWindow"
+﻿<Window x:Class="WpfApp2.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -63,5 +63,6 @@
         </ListView>
 
         <Button x:Name="dbBtn" Grid.Row="2" Grid.Column="0" Click="DbBtn_Click">Db Action</Button>
+        <Button x:Name="goTN" Grid.Row="2" Grid.Column="1" Click="GoTN_Click">Go to next view</Button>
     </Grid>
 </Window>

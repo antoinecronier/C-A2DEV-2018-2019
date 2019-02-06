@@ -18,7 +18,7 @@ using WpfApp2.Database;
 using WpfApp2.Database.DTO;
 using WpfApp2.Models;
 
-namespace WpfApp2
+namespace WpfApp2.Views
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
@@ -121,6 +121,12 @@ namespace WpfApp2
                     System.Console.WriteLine(item.ToString());
                 }
             }
+        }
+
+        private void GoTN_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 w1 = new Window1();
+            w1.Show();
         }
     }
 }
