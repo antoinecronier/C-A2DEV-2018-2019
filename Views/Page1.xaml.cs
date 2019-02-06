@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WpfApp2.Models;
 
 namespace WpfApp2.Views
@@ -101,17 +103,24 @@ namespace WpfApp2.Views
                 this.gameGrid.RowDefinitions.Add(row);
             }
 
-            for (int i = 0; i < this.MapHeight; i++)
+            Task.Factory.StartNew(() =>
             {
-                for (int j = 0; j < this.MapWidth; j++)
+                for (int i = 0; i < this.MapHeight; i++)
                 {
-                    Button btn = new Button();
-                    btn.Content = "H:" + i + "W:" + j;
-                    Grid.SetColumn(btn, i);
-                    Grid.SetRow(btn, j);
-                    this.gameGrid.Children.Add(btn);
+                    for (int j = 0; j < this.MapWidth; j++)
+                    {
+                        Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new ThreadStart(delegate
+                        {
+                            Button btn = new Button();
+                            btn.Content = "H:" + i + "W:" + j;
+                            Grid.SetColumn(btn, i);
+                            Grid.SetRow(btn, j);
+
+                            this.gameGrid.Children.Add(btn);
+                        }));
+                    }
                 }
-            }
+            });
         }
         #endregion
 
