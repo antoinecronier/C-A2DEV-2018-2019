@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.Database;
+using WpfApp2.Database.DTO;
 using WpfApp2.Models;
 
 namespace WpfApp2
@@ -86,5 +88,25 @@ namespace WpfApp2
             System.Console.WriteLine(class2.Data);
         }
         #endregion
+
+        private void DbBtn_Click(object sender, RoutedEventArgs e)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                Class1Dto myDto = new Class1Dto();
+                myDto.Data = "bonjour";
+
+                db.Class1DtoDbSet.Add(myDto);
+
+                db.SaveChanges();
+
+                System.Console.WriteLine("--------------------------");
+
+                foreach (var item in db.Class1DtoDbSet)
+                {
+                    System.Console.WriteLine(item.Data);
+                }
+            }
+        }
     }
 }

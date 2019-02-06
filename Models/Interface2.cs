@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.Models
 {
-    interface Interface2
+    public interface Interface2 : Interface1
     {
     }
 }

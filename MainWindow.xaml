@@ -61,5 +61,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button x:Name="dbBtn" Grid.Row="2" Grid.Column="0" Click="DbBtn_Click">Db Action</Button>
     </Grid>
 </Window>

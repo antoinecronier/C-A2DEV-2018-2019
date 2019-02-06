@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp2.Models
+namespace WpfApp2.Database.DTO
 {
-    public class Class2 : Interface1
+    public class Class1Dto
     {
-
         #region StaticVariables
         #endregion
 
@@ -21,7 +20,6 @@ namespace WpfApp2.Models
         #region Attributs
         private long id;
         private String data;
-        private List<Class1> class1s;
         #endregion
 
         #region Properties
@@ -36,44 +34,15 @@ namespace WpfApp2.Models
             get { return data; }
             set { data = value; }
         }
-
-        public List<Class1> Class1s
-        {
-            get { return class1s; }
-            set { class1s = value; }
-        }
-
-        public int MyProperty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Class2()
+        public Class1Dto()
         {
 
-        }
-
-        public Class2(string data)
-        {
-            this.data = data;
-        }
-
-        public Class2(long id, string data)
-        {
-            this.id = id;
-            this.data = data;
-        }
-
-        public void F4()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool F5()
-        {
-            throw new NotImplementedException();
         }
         #endregion
 
