@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,7 +23,7 @@ namespace WpfApp2.Views
     /// <summary>
     /// Logique d'interaction pour Page1.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class Page1 : Page, INotifyPropertyChanged
     {
 
         #region StaticVariables
@@ -32,40 +33,16 @@ namespace WpfApp2.Views
         #endregion
 
         #region Variables
-        #endregion
-
-        #region Attributs
-        private int mapWidth;
-        private int mapHeight;
-        private Account account;
-        #endregion
-
-        #region Properties
-        public Account Account
+        public UserControl2 Uc2
         {
-            get { return account; }
-            set { account = value; }
-        }
-
-        public int MapWidth
-        {
-            get { return mapWidth; }
+            get { return this.uc2; }
             set
             {
-                mapWidth = value;
-                ResizeMap();
+                this.uc2 = value;
+                OnPropertyChanged("Uc2");
             }
         }
 
-        public int MapHeight
-        {
-            get { return mapHeight; }
-            set
-            {
-                mapHeight = value;
-                ResizeMap();
-            }
-        }
         #endregion
 
         #region Constructors
@@ -76,9 +53,10 @@ namespace WpfApp2.Views
         {
             InitializeComponent();
             this.DataContext = this;
-            this.account = new Account();
-            this.account.Firstname = "toto";
-            this.account.Lastname = "test";
+            this.Uc2.DataContext = this.Uc2;
+            this.Uc2.Account = new Account();
+            this.Uc2.Account.Firstname = "toto";
+            this.Uc2.Account.Lastname = "test";
         }
         #endregion
 
@@ -86,19 +64,19 @@ namespace WpfApp2.Views
         #endregion
 
         #region Functions
-        private void ResizeMap()
+        public void ResizeMap()
         {
             this.gameGrid.Children.Clear();
             this.gameGrid.ColumnDefinitions.Clear();
             this.gameGrid.RowDefinitions.Clear();
 
-            for (int i = 0; i < this.MapHeight; i++)
+            for (int i = 0; i < this.Uc2.MapHeight; i++)
             {
                 ColumnDefinition col = new ColumnDefinition();
                 this.gameGrid.ColumnDefinitions.Add(col);
             }
 
-            for (int i = 0; i < this.MapWidth; i++)
+            for (int i = 0; i < this.Uc2.MapWidth; i++)
             {
                 RowDefinition row = new RowDefinition();
                 this.gameGrid.RowDefinitions.Add(row);
@@ -106,9 +84,9 @@ namespace WpfApp2.Views
 
             Task.Factory.StartNew(() =>
             {
-                for (int i = 0; i < this.MapHeight; i++)
+                for (int i = 0; i < this.Uc2.MapHeight; i++)
                 {
-                    for (int j = 0; j < this.MapWidth; j++)
+                    for (int j = 0; j < this.Uc2.MapWidth; j++)
                     {
                         Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
                         {
@@ -128,6 +106,19 @@ namespace WpfApp2.Views
         #endregion
 
         #region Events
+        #endregion
+
+        #region Property changed implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
         #endregion
     }
 }
