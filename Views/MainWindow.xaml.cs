@@ -17,6 +17,8 @@ using System.Data.Entity;
 using WpfApp2.Database;
 using WpfApp2.Database.DTO;
 using WpfApp2.Models;
+using System.IO;
+using System.Windows.Resources;
 
 namespace WpfApp2.Views
 {

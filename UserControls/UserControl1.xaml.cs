@@ -82,6 +82,8 @@ namespace WpfApp2.UserControls
         #region Events
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer("./Resources/1023.wav");
+            player.Play();
             MessageBox.Show("Button " + "X:" + this.X + " " + "Y:" + this.Y + "clicked");
         }
 

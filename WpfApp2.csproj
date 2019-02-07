@@ -141,5 +141,10 @@
   <ItemGroup>
     <Resource Include="Resources\battleship_003.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\1023.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
