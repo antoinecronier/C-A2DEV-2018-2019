@@ -33,7 +33,7 @@
             <TextBox x:Name="mapWidthTxt" Grid.Row="1" Grid.Column="0" Text="{Binding MapWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <TextBlock x:Name="mapHeightLabel" Grid.Row="0" Grid.Column="1">Map Height</TextBlock>
-            <TextBox x:Name="mapHeightTxt" Grid.Row="1" Grid.Column="1" Text="{Binding MapHeight, Mode=TwoWay}"></TextBox>
+            <TextBox x:Name="mapHeightTxt" Grid.Row="1" Grid.Column="1" Text="{Binding MapHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <TextBlock x:Name="firstname" Grid.Row="0" Grid.Column="2" Text="{Binding Account.Firstname, Mode=OneWay}"></TextBlock>
             <TextBlock x:Name="lastname" Grid.Row="1" Grid.Column="2" Text="{Binding Account.Lastname, Mode=OneWay}"></TextBlock>
