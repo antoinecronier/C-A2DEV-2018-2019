@@ -56,6 +56,12 @@ namespace WpfApp2.Models
             this.FiredCells = new List<Cell>();
             this.Ships = new List<Ship>();
         }
+
+        public Player(string name, PlayerType playerType) : this()
+        {
+            this.Name = name;
+            this.PlayerType = playerType;
+        }
         #endregion
 
         #region StaticFunctions

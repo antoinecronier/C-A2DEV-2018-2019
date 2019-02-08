@@ -52,6 +52,13 @@ namespace WpfApp2.Models
         {
 
         }
+
+        public Cell(int x, int y, State state) : this()
+        {
+            this.X = x;
+            this.Y = y;
+            this.State = state;
+        }
         #endregion
 
         #region StaticFunctions

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.Models;
 using WpfApp2.UserControls;
 
 namespace WpfApp2.Views
@@ -35,7 +36,7 @@ namespace WpfApp2.Views
         #region Attributs
         private uint mapWidth;
         private uint mapHeight;
-        private String playerName;
+        private Player player;
         private ShipConfig corvette = new ShipConfig();
         private ShipConfig destroyer = new ShipConfig();
         private ShipConfig cruser = new ShipConfig();
@@ -43,12 +44,12 @@ namespace WpfApp2.Views
         #endregion
 
         #region Properties
-        public String PlayerName
+        public Player Player
         {
-            get { return playerName; }
+            get { return player; }
             set
             {
-                playerName = value;
+                player = value;
                 OnPropertyChanged("PlayerName");
             }
         }
@@ -124,6 +125,9 @@ namespace WpfApp2.Views
 
             this.DataContext = this;
 
+            this.Player = new Player();
+            this.Player.PlayerType = PlayerType.HUMAN;
+
             this.Corvette.Ship.Name = "Corvette";
             this.Destroyer.Ship.Name = "Destroyer";
             this.Cruser.Ship.Name = "Cruser";
@@ -141,7 +145,7 @@ namespace WpfApp2.Views
         #endregion
 
         #region Functions
-        public void LoadConfiguration(List<ShipConfig> shipConfigs, uint mapWidth, uint mapHeight, string playerName)
+        public void LoadConfiguration(List<ShipConfig> shipConfigs, uint mapWidth, uint mapHeight, Player player)
         {
             this.UCCorvette.ShipConfig = shipConfigs.ElementAt(0);
             this.UCDestroyer.ShipConfig = shipConfigs.ElementAt(1);
@@ -149,7 +153,7 @@ namespace WpfApp2.Views
             this.UCAirportShip.ShipConfig = shipConfigs.ElementAt(3);
             this.MapWidth = mapWidth;
             this.MapHeight = mapHeight;
-            this.PlayerName = playerName;
+            this.Player = player;
         }
         #endregion
 
@@ -159,7 +163,7 @@ namespace WpfApp2.Views
             List<ShipConfig> ships = new List<ShipConfig>() { Corvette, Destroyer, Cruser, AirportShip };
 
             SetupBoatPage setupBoat = new SetupBoatPage();
-            setupBoat.CreateGrid(ships, this.MapWidth, this.MapHeight, this.PlayerName);
+            setupBoat.CreateGrid(ships, this.MapWidth, this.MapHeight, this.Player);
 
             (this.Parent as Window).Content = setupBoat;
         }

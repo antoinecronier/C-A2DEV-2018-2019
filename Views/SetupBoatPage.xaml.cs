@@ -13,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 using WpfApp2.Models;
 using WpfApp2.UserControls;
+using WpfApp2.Utils;
 using WpfApp2.ViewModels;
 
 namespace WpfApp2.Views
@@ -37,7 +39,7 @@ namespace WpfApp2.Views
         private List<ShipConfig> shipConfigs;
         private uint mapWidth;
         private uint mapHeight;
-        private String playerName;
+        private Player player;
         private ObservableCollection<Ship> ships;
         private Ship currentSelection;
         private GameViewModel gameViewModel;
@@ -45,10 +47,10 @@ namespace WpfApp2.Views
         #endregion
 
         #region Properties
-        public String PlayerName
+        public Player Player
         {
-            get { return playerName; }
-            set { playerName = value; }
+            get { return player; }
+            set { player = value; }
         }
         
         public uint MapHeight
@@ -114,8 +116,15 @@ namespace WpfApp2.Views
         #endregion
 
         #region Functions
-        public void CreateGrid(List<ShipConfig> shipsConfig, uint mapWidth, uint mapHeight, string playerName)
+        public void CreateGrid(List<ShipConfig> shipsConfig, uint mapWidth, uint mapHeight, Player player)
         {
+            this.Player = player;
+
+            this.GameViewModel.Game.Width = mapWidth;
+            this.GameViewModel.Game.Height = mapHeight;
+
+            this.GameViewModel.Game.Players.Add(player);
+
             this.ShipConfigs = shipsConfig;
 
             foreach (var item in shipsConfig)
@@ -183,37 +192,121 @@ namespace WpfApp2.Views
                     }
                     else if (cellUc.Y == this.LastCellClicked.Y && cellUc.X < this.LastCellClicked.X)
                     {
-                        direction = Direction.RIGHT;
+                        direction = Direction.LEFT;
                     }
                     else
                     {
-                        this.LastCellClicked.ImagePath = "";
+                        this.LastCellClicked.ImagePath = ImageByState.GetImage(State.RETRY);
                         this.LastCellClicked = null;
                     }
 
-
-                    if (this.GameViewModel.CheckCoordinateForShip(cellUc.Y, cellUc.X, direction, this.CurrentSelection, PlayerType.HUMAN))
+                    if (this.LastCellClicked != null && this.GameViewModel.CheckCoordinateForShip(this.LastCellClicked.Y, this.LastCellClicked.X, direction, this.CurrentSelection, this.Player))
                     {
-                        this.GameViewModel.SetShip(cellUc.Y, cellUc.X, direction, this.CurrentSelection, PlayerType.HUMAN);
-                    }
+                        this.GameViewModel.SetShip(this.LastCellClicked.Y, this.LastCellClicked.X, direction, this.CurrentSelection, this.Player);
 
+                        switch (direction)
+                        {
+                            case Direction.TOP:
+                                for (int i = this.LastCellClicked.Y; i > this.LastCellClicked.Y - this.CurrentSelection.Width; i--)
+                                {
+                                    foreach (var item in this.mapGrid.Children)
+                                    {
+                                        if ((item as CellUserControl).Y == i && (item as CellUserControl).X == this.LastCellClicked.X)
+                                        {
+                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                        }
+                                    }
+                                }
+                                break;
+                            case Direction.BOTTOM:
+                                for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Width; i++)
+                                {
+                                    foreach (var item in this.mapGrid.Children)
+                                    {
+                                        if ((item as CellUserControl).Y == i && (item as CellUserControl).X == this.LastCellClicked.X)
+                                        {
+                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                        }
+                                    }
+                                }
+                                break;
+                            case Direction.RIGHT:
+                                for (int i = this.LastCellClicked.X; i < this.LastCellClicked.X + this.CurrentSelection.Width; i++)
+                                {
+                                    foreach (var item in this.mapGrid.Children)
+                                    {
+                                        if ((item as CellUserControl).Y == this.LastCellClicked.Y && (item as CellUserControl).X == i)
+                                        {
+                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                        }
+                                    }
+                                }
+                                break;
+                            case Direction.LEFT:
+                                for (int i = this.LastCellClicked.X; i > this.LastCellClicked.X - this.CurrentSelection.Width; i--)
+                                {
+                                    foreach (var item in this.mapGrid.Children)
+                                    {
+                                        if ((item as CellUserControl).Y == this.LastCellClicked.Y && (item as CellUserControl).X == i)
+                                        {
+                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                        }
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        //for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Height; i++)
+                        //{
+                        //    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Width; j++)
+                        //    {
+                        //        foreach (var item in this.mapGrid.Children)
+                        //        {
+                        //            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                        //            {
+                        //                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                        //            }
+                        //        }
+                        //    }
+                        //}
+
+                        this.Ships.Remove(this.CurrentSelection);
+
+                        if (this.Ships.Count <= 0)
+                        {
+                            List<Ship> ships = new List<Ship>();
+                            foreach (var item in ShipConfigs)
+                            {
+                                for (int i = 0; i < item.ShipNb; i++)
+                                {
+                                    ships.Add(item.Ship);
+                                }
+                            }
+
+                            this.GameViewModel.SetupMapForAi(ships);
+
+                            GamePage page = new GamePage();
+                            page.GameViewModel = this.GameViewModel;
+                            page.CreateGrid(this.Player);
+                            (this.Parent as Window).Content = page;
+                        }
+                    }
+                    
                     this.LastCellClicked = null;
                 }
                 else
                 {
                     this.LastCellClicked = cellUc;
+                    cellUc.ImagePath = ImageByState.GetImage(State.SHIP);
                 }
-            }
-            else
-            {
-                cellUc.ImagePath = "battleship_003.jpg";
             }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             SetupGamePage setupGame = new SetupGamePage();
-            setupGame.LoadConfiguration(this.ShipConfigs,this.MapWidth, this.MapHeight, this.PlayerName);
+            setupGame.LoadConfiguration(this.ShipConfigs,this.MapWidth, this.MapHeight, this.Player);
 
             (this.Parent as Window).Content = setupGame;
         }

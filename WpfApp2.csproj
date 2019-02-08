@@ -77,6 +77,7 @@
     <Compile Include="UserControls\ShipConfigUserControl.xaml.cs">
       <DependentUpon>ShipConfigUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ImageByState.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="Views\GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
@@ -158,6 +159,8 @@
     <Content Include="Resources\1023.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\stopSign.png" />
+    <Resource Include="Resources\water.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

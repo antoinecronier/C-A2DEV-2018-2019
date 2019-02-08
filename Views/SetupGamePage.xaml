@@ -36,7 +36,7 @@
             <TextBox x:Name="mapHeightTxtB" Grid.Column="1" Grid.Row="1" Text="{Binding MapHeight}"></TextBox>
 
             <TextBlock x:Name="playerNameLabel" Grid.Column="2" Grid.Row="0">Player Name</TextBlock>
-            <TextBox x:Name="playerNameTxtB" Grid.Column="2" Grid.Row="1" Text="{Binding PlayerName}"></TextBox>
+            <TextBox x:Name="playerNameTxtB" Grid.Column="2" Grid.Row="1" Text="{Binding Player.Name}"></TextBox>
         </Grid>
 
         <Grid Grid.Column="0" Grid.Row="1">

@@ -5,6 +5,7 @@
         SHIP,
         WATER,
         FIRED_SHIP,
-        FIRED_WATER
+        FIRED_WATER,
+        RETRY
     }
 }

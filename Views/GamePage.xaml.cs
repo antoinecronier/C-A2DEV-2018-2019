@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApp2.Models;
 using WpfApp2.UserControls;
+using WpfApp2.ViewModels;
 
 namespace WpfApp2.Views
 {
@@ -35,6 +36,25 @@ namespace WpfApp2.Views
         #region Variables
         #endregion
 
+        #region Attributs
+        private GameViewModel gameViewModel;
+        private Player player;
+        #endregion
+
+        #region Properties
+        public GameViewModel GameViewModel
+        {
+            get { return gameViewModel; }
+            set { gameViewModel = value; }
+        }
+
+        public Player Player
+        {
+            get { return player; }
+            set { player = value; }
+        }
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Default constructor.
@@ -50,48 +70,80 @@ namespace WpfApp2.Views
         #endregion
 
         #region Functions
-        //public void ResizeMap()
-        //{
-        //    this.gameGrid.Children.Clear();
-        //    this.gameGrid.ColumnDefinitions.Clear();
-        //    this.gameGrid.RowDefinitions.Clear();
+        public void CreateGrid(Player player)
+        {
+            this.Player = player;
 
-        //    for (int i = 0; i < this.Uc2.MapHeight; i++)
-        //    {
-        //        ColumnDefinition col = new ColumnDefinition();
-        //        this.gameGrid.ColumnDefinitions.Add(col);
-        //    }
+            this.gameGrid.ColumnDefinitions.Clear();
+            this.gameGrid.RowDefinitions.Clear();
 
-        //    for (int i = 0; i < this.Uc2.MapWidth; i++)
-        //    {
-        //        RowDefinition row = new RowDefinition();
-        //        this.gameGrid.RowDefinitions.Add(row);
-        //    }
+            for (int i = 0; i < this.GameViewModel.Game.Width; i++)
+            {
+                this.gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
 
-        //    Task.Factory.StartNew(() =>
-        //    {
-        //        for (int i = 0; i < this.Uc2.MapHeight; i++)
-        //        {
-        //            for (int j = 0; j < this.Uc2.MapWidth; j++)
-        //            {
-        //                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
-        //                {
-        //                    CellUserControl uc1 = new CellUserControl();
-        //                    uc1.X = i;
-        //                    uc1.Y = j;
-                            
-        //                    Grid.SetColumn(uc1, i);
-        //                    Grid.SetRow(uc1, j);
+            for (int i = 0; i < this.GameViewModel.Game.Height; i++)
+            {
+                this.gameGrid.RowDefinitions.Add(new RowDefinition());
+            }
 
-        //                    this.gameGrid.Children.Add(uc1);
-        //                }));
-        //            }
-        //        }
-        //    });
-        //}
+            for (int i = 0; i < this.GameViewModel.Game.Width; i++)
+            {
+                for (int j = 0; j < this.GameViewModel.Game.Height; j++)
+                {
+                    CellUserControl cellUc = new CellUserControl();
+                    cellUc.X = j;
+                    cellUc.Y = i;
+
+                    cellUc.CellButton.Click += CellButton_Click;
+
+                    Grid.SetRow(cellUc, i);
+                    Grid.SetColumn(cellUc, j);
+
+                    this.gameGrid.Children.Add(cellUc);
+                }
+            }
+        }
         #endregion
 
         #region Events
+        private void CellButton_Click(object sender, RoutedEventArgs e)
+        {
+            CellUserControl cellUc = ((e.Source as Button).Parent as CellUserControl);
+
+            State state = this.GameViewModel.Fire(cellUc.Y,cellUc.X,this.Player);
+
+            if (state != State.RETRY)
+            {
+                switch (state)
+                {
+                    case State.FIRED_SHIP:
+                        cellUc.ImagePath = "";
+                        break;
+                    case State.FIRED_WATER:
+                        cellUc.ImagePath = "";
+                        break;
+                    default:
+                        break;
+                }
+
+                if (this.GameViewModel.CheckGameEnded(this.Player))
+                {
+                    MessageBox.Show("Game Winned");
+                    SetupGamePage page = new SetupGamePage();
+                    (this.Parent as Window).Content = page;
+                }
+
+                this.GameViewModel.PlayOthers(this.Player);
+
+                if (this.GameViewModel.CheckGameLoosed(this.Player))
+                {
+                    MessageBox.Show("Game Loosed");
+                    SetupGamePage page = new SetupGamePage();
+                    (this.Parent as Window).Content = page;
+                }
+            }
+        }
         #endregion
 
         #region Property changed implementation

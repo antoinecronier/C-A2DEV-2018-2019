@@ -20,8 +20,8 @@ namespace WpfApp2.Models
 
         #region Attributs
         private List<Player> players;
-        private int width;
-        private int height;
+        private uint width;
+        private uint height;
         private List<Ship> ships;
         #endregion
 
@@ -32,13 +32,13 @@ namespace WpfApp2.Models
             set { players = value; }
         }
 
-        public int Height
+        public uint Height
         {
             get { return height; }
             set { height = value; }
         }
 
-        public int Width
+        public uint Width
         {
             get { return width; }
             set { width = value; }

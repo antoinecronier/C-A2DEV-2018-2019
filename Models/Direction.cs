@@ -8,10 +8,10 @@ namespace WpfApp2.Models
 {
     public enum Direction
     {
-        TOP,
-        BOTTOM,
-        RIGHT,
-        LEFT,
-        NONE
+        TOP = 1,
+        BOTTOM = 2,
+        RIGHT = 3,
+        LEFT = 4,
+        NONE = 0
     }
 }
