@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace WpfApp2.Database.DTO
         private Boolean myBool;
         private int[] intArray;
         private List<Class2Dto> class2Dtos;
+        private String arrayDump;
         #endregion
 
         #region Properties
@@ -46,16 +48,45 @@ namespace WpfApp2.Database.DTO
             set { myBool = value; }
         }
 
+        [NotMapped]
         public int[] IntArray
         {
             get { return intArray; }
-            set { intArray = value; }
+            set
+            {
+                intArray = value;
+                String dataTranslation = "";
+                int i = 0;
+                for (; i < IntArray.Length; i++)
+                {
+                    dataTranslation += IntArray.ElementAt(i) + ",";
+                }
+                dataTranslation += "";
+                this.ArrayDump = dataTranslation;
+            }
         }
 
         public List<Class2Dto> Class2Dtos
         {
             get { return class2Dtos; }
             set { class2Dtos = value; }
+        }
+
+        public String ArrayDump
+        {
+            get
+            {
+                int[] array = new int[this.arrayDump.Split(',').Length];
+                int i = 0;
+                foreach (var item in this.arrayDump.Split(','))
+                {
+                    array[i] = int.Parse(item);
+                    i++;
+                }
+                this.IntArray = array;
+                return arrayDump;
+            }
+            set { arrayDump = value; }
         }
         #endregion
 
