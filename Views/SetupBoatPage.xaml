@@ -43,8 +43,7 @@
         </ListView>
 
         <Grid x:Name="mapGrid" Grid.Column="1" Grid.Row="1">
-            
+
         </Grid>
-        
     </Grid>
 </Page>

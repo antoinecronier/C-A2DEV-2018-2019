@@ -69,14 +69,14 @@ namespace WpfApp2.ViewModels
         {
         }
 
-        public Boolean CheckCoordinateForShip(int y, int x, System.Windows.Controls.ExpandDirection direction, Ship currentSelection, PlayerType playerType)
+        public Boolean CheckCoordinateForShip(int y, int x, Direction direction, Ship currentSelection, PlayerType playerType)
         {
             Boolean result = true;
 
             return result;
         }
 
-        public void SetShip(int y, int x, ExpandDirection direction, Ship currentSelection, PlayerType hUMAN)
+        public void SetShip(int y, int x, Direction direction, Ship currentSelection, PlayerType hUMAN)
         {
         }
         #endregion

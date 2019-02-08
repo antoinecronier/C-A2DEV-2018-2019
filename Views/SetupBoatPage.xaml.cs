@@ -162,31 +162,33 @@ namespace WpfApp2.Views
         #region Events
         private void CellButton_Click(object sender, RoutedEventArgs e)
         {
+            CellUserControl cellUc = ((e.Source as Button).Parent as CellUserControl);
+
             if (this.CurrentSelection != null)
             {
-                CellUserControl cellUc = ((e.Source as Button).Parent as CellUserControl);
-
                 if (this.LastCellClicked != null)
                 {
-                    ExpandDirection direction;
-                    if (cellUc.X > this.LastCellClicked.X)
+                    Direction direction = Direction.NONE;
+                    if (cellUc.X == this.LastCellClicked.X && cellUc.Y > this.LastCellClicked.Y)
                     {
-                        if (cellUc.Y > this.LastCellClicked.Y)
-                        {
-                            direction = ExpandDirection.Down;
-                        }
-                        else
-                        {
-                            direction = ExpandDirection.Right;
-                        }
+                        direction = Direction.BOTTOM;
                     }
-                    else if(cellUc.Y > this.LastCellClicked.Y)
+                    else if (cellUc.X == this.LastCellClicked.X && cellUc.Y < this.LastCellClicked.Y)
                     {
-                        direction = ExpandDirection.Left;
+                        direction = Direction.TOP;
+                    }
+                    else if (cellUc.Y == this.LastCellClicked.Y && cellUc.X > this.LastCellClicked.X)
+                    {
+                        direction = Direction.RIGHT;
+                    }
+                    else if (cellUc.Y == this.LastCellClicked.Y && cellUc.X < this.LastCellClicked.X)
+                    {
+                        direction = Direction.RIGHT;
                     }
                     else
                     {
-                        direction = ExpandDirection.Left;
+                        this.LastCellClicked.ImagePath = "";
+                        this.LastCellClicked = null;
                     }
 
 
@@ -201,6 +203,10 @@ namespace WpfApp2.Views
                 {
                     this.LastCellClicked = cellUc;
                 }
+            }
+            else
+            {
+                cellUc.ImagePath = "battleship_003.jpg";
             }
         }
 

@@ -72,8 +72,15 @@ namespace WpfApp2.UserControls
             {
                 imagePath = value;
                 OnPropertyChanged("ImagePath");
-                this.ImageSource = new BitmapImage(
+                if (value == "")
+                {
+                    this.ImageSource = null;
+                }
+                else
+                {
+                    this.ImageSource = new BitmapImage(
                                 new Uri("pack://application:,,,/WpfApp2;component/Resources/" + value));
+                }
             }
         }
 
@@ -107,22 +114,22 @@ namespace WpfApp2.UserControls
         #endregion
 
         #region Events
-        private void Btn_Click(object sender, RoutedEventArgs e)
-        {
-            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(this.SoundPath);
-            //player.Play();
-            //MessageBox.Show("Button " + "X:" + this.X + " " + "Y:" + this.Y + "clicked");
-        }
+        //private void Btn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //System.Media.SoundPlayer player = new System.Media.SoundPlayer(this.SoundPath);
+        //    //player.Play();
+        //    //MessageBox.Show("Button " + "X:" + this.X + " " + "Y:" + this.Y + "clicked");
+        //}
 
-        private void Btn_MouseLeave(object sender, MouseEventArgs e)
-        {
-            this.ImagePath = "BB61_USS_Iowa_BB61_broadside_USN.jpg";
-        }
+        //private void Btn_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    this.ImagePath = "BB61_USS_Iowa_BB61_broadside_USN.jpg";
+        //}
 
-        private void Btn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            this.ImagePath = "battleship_003.jpg";
-        }
+        //private void Btn_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    this.ImagePath = "battleship_003.jpg";
+        //}
         #endregion
 
         #region Property changed implementation

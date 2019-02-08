@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="Database\BaseEntity\DatabaseEntity.cs" />
     <Compile Include="Models\Cell.cs" />
+    <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerType.cs" />

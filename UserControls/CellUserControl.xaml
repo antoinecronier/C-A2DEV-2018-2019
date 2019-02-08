@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp2.UserControls"
              mc:Ignorable="d">
-    <Button x:Name="cellBtn" Click="Btn_Click" MouseEnter="Btn_MouseEnter" MouseLeave="Btn_MouseLeave">
+    <Button x:Name="cellBtn">
         <Image x:Name="image" Stretch="Fill" Source="{Binding ImageSource, Mode=TwoWay}"></Image>
     </Button>
 </UserControl>
