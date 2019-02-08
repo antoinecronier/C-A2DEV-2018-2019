@@ -14,59 +14,59 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp2.Models;
-using WpfApp2.Views;
 
 namespace WpfApp2.UserControls
 {
     /// <summary>
-    /// Logique d'interaction pour UserControl2.xaml
+    /// Logique d'interaction pour ShipConfigUserControl.xaml
     /// </summary>
-    public partial class UserControl2 : UserControl, INotifyPropertyChanged
+    public partial class ShipConfigUserControl : UserControl, INotifyPropertyChanged
     {
+
+        #region StaticVariables
+        #endregion
+
+        #region Constants
+        #endregion
+
+        #region Variables
+        #endregion
+
         #region Attributs
-        private int mapWidth;
-        private int mapHeight;
-        private Account account;
+        private ShipConfig shipConfig;
         #endregion
 
         #region Properties
-        public Account Account
+        public ShipConfig ShipConfig
         {
-            get { return account; }
+            get { return shipConfig; }
             set
             {
-                account = value;
-                OnPropertyChanged("Account");
-            }
-        }
-
-        public int MapWidth
-        {
-            get { return mapWidth; }
-            set
-            {
-                mapWidth = value;
-                OnPropertyChanged("MapWidth");
-                ((this.Parent as Grid).Parent as Page1).ResizeMap();
-            }
-        }
-
-        public int MapHeight
-        {
-            get { return mapHeight; }
-            set
-            {
-                mapHeight = value;
-                OnPropertyChanged("MapHeight");
-                ((this.Parent as Grid).Parent as Page1).ResizeMap();
+                shipConfig = value;
+                OnPropertyChanged("ShipConfig");
             }
         }
         #endregion
 
-        public UserControl2()
+        #region Constructors
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public ShipConfigUserControl()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
+        #endregion
+
+        #region StaticFunctions
+        #endregion
+
+        #region Functions
+        #endregion
+
+        #region Events
+        #endregion
 
         #region Property changed implementation
         public event PropertyChangedEventHandler PropertyChanged;

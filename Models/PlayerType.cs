@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.Models
 {
-    public interface Interface2 : Interface1
+    public enum PlayerType
     {
+        HUMAN,
+        AI
     }
 }

@@ -4,14 +4,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfApp2.Database.DTO;
 using WpfApp2.Models;
 
 namespace WpfApp2.Database
 {
     public class ApplicationDbContext : DbContext
     {
-
         #region StaticVariables
         #endregion
 
@@ -22,21 +20,14 @@ namespace WpfApp2.Database
         #endregion
 
         #region Attributs
-        private DbSet<Class1Dto> class1Dtos;
-        private DbSet<Class2Dto> class2Dtos;
+        private DbSet<Game> gameDbSet;
         #endregion
 
         #region Properties
-        public DbSet<Class1Dto> Class1DtoDbSet
+        public DbSet<Game> GameDbSet
         {
-            get { return class1Dtos; }
-            set { class1Dtos = value; }
-        }
-
-        public DbSet<Class2Dto> Class2DtoDbSet
-        {
-            get { return class2Dtos; }
-            set { class2Dtos = value; }
+            get { return gameDbSet; }
+            set { gameDbSet = value; }
         }
         #endregion
 
@@ -66,7 +57,5 @@ namespace WpfApp2.Database
 
         #region Events
         #endregion
-
-
     }
 }

@@ -62,57 +62,64 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Account.cs" />
-    <Compile Include="UserControls\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="Database\BaseEntity\DatabaseEntity.cs" />
+    <Compile Include="Models\Cell.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerType.cs" />
+    <Compile Include="Models\Ship.cs" />
+    <Compile Include="Models\State.cs" />
+    <Compile Include="UserControls\CellUserControl.xaml.cs">
+      <DependentUpon>CellUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserControl2.xaml.cs">
-      <DependentUpon>UserControl2.xaml</DependentUpon>
+    <Compile Include="UserControls\ShipConfig.cs" />
+    <Compile Include="UserControls\ShipConfigUserControl.xaml.cs">
+      <DependentUpon>ShipConfigUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
+    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="Views\GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="Views\AppWindow.xaml.cs">
+      <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="UserControls\UserControl1.xaml">
+    <Compile Include="Views\SetupBoatPage.xaml.cs">
+      <DependentUpon>SetupBoatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SetupGamePage.xaml.cs">
+      <DependentUpon>SetupGamePage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UserControls\CellUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\UserControl2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\ApplicationDbContext.cs" />
-    <Compile Include="Database\DTO\Class1Dto.cs" />
-    <Compile Include="Database\DTO\Class2Dto.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\Page1.xaml">
+    <Page Include="UserControls\ShipConfigUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Window1.xaml">
+    <Page Include="Views\GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SetupBoatPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SetupGamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Class1.cs" />
-    <Compile Include="Models\Class2.cs" />
-    <Compile Include="Models\Interface1.cs" />
-    <Compile Include="Models\Interface2.cs" />
-    <Compile Include="Models\MotherClass1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,9 +146,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\BB61_USS_Iowa_BB61_broadside_USN.jpg" />
   </ItemGroup>

@@ -17,43 +17,17 @@ namespace WpfApp2.Views
     /// <summary>
     /// Logique d'interaction pour Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class AppWindow : Window
     {
-        #region StaticVariables
-        #endregion
-
-        #region Constants
-        #endregion
-
-        #region Variables
-        #endregion
-
-        #region Attributs
-        #endregion
-
-        #region Properties
-        #endregion
-
         #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Window1()
+        public AppWindow()
         {
             InitializeComponent();
-            this.Content = new Page1();
+            this.Content = new SetupGamePage();
         }
         #endregion
-
-        #region StaticFunctions
-        #endregion
-
-        #region Functions
-        #endregion
-
-        #region Events
-        #endregion
-
-
     }
 }

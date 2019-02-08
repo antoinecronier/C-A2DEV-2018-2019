@@ -19,7 +19,7 @@ namespace WpfApp2.UserControls
     /// <summary>
     /// Logique d'interaction pour UserControl1.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl, INotifyPropertyChanged
+    public partial class CellUserControl : UserControl, INotifyPropertyChanged
     {
         #region StaticVariables
         #endregion
@@ -34,6 +34,12 @@ namespace WpfApp2.UserControls
         private BitmapImage imageSource;
         private int x;
         private int y;
+        private String imagePath;
+
+        /// <summary>
+        /// "./Resources/1023.wav"
+        /// </summary>
+        private String soundPath;
         #endregion
 
         #region Properties
@@ -58,18 +64,39 @@ namespace WpfApp2.UserControls
             get { return y; }
             set { y = value; }
         }
+
+        public String ImagePath
+        {
+            get { return imagePath; }
+            set
+            {
+                imagePath = value;
+                OnPropertyChanged("ImagePath");
+                this.ImageSource = new BitmapImage(
+                                new Uri("pack://application:,,,/WpfApp2;component/Resources/" + value));
+            }
+        }
+
+        public String SoundPath
+        {
+            get { return soundPath; }
+            set { soundPath = value; }
+        }
+
+        public Button CellButton
+        {
+            get { return this.cellBtn; }
+        }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public UserControl1()
+        public CellUserControl()
         {
             InitializeComponent();
             this.DataContext = this;
-            this.ImageSource = new BitmapImage(
-                                new Uri("pack://application:,,,/WpfApp2;component/Resources/BB61_USS_Iowa_BB61_broadside_USN.jpg"));
         }
         #endregion
 
@@ -82,21 +109,19 @@ namespace WpfApp2.UserControls
         #region Events
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer("./Resources/1023.wav");
-            player.Play();
-            MessageBox.Show("Button " + "X:" + this.X + " " + "Y:" + this.Y + "clicked");
+            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(this.SoundPath);
+            //player.Play();
+            //MessageBox.Show("Button " + "X:" + this.X + " " + "Y:" + this.Y + "clicked");
         }
 
         private void Btn_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.ImageSource = new BitmapImage(
-                                new Uri("pack://application:,,,/WpfApp2;component/Resources/BB61_USS_Iowa_BB61_broadside_USN.jpg"));
+            this.ImagePath = "BB61_USS_Iowa_BB61_broadside_USN.jpg";
         }
 
         private void Btn_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.ImageSource = new BitmapImage(
-                                new Uri("pack://application:,,,/WpfApp2;component/Resources/battleship_003.jpg"));
+            this.ImagePath = "battleship_003.jpg";
         }
         #endregion
 

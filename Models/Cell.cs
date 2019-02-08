@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp2.Database.BaseEntity;
 
 namespace WpfApp2.Models
 {
-    public class Account
+    public class Cell : DatabaseEntity
     {
-
         #region StaticVariables
         #endregion
 
@@ -19,21 +19,28 @@ namespace WpfApp2.Models
         #endregion
 
         #region Attributs
-        private String firstname;
-        private String lastname;
+        private int x;
+        private int y;
+        private State state;
         #endregion
 
         #region Properties
-        public String Lastname
+        public State State
         {
-            get { return lastname; }
-            set { lastname = value; }
+            get { return state; }
+            set { state = value; }
         }
 
-        public String Firstname
+        public int Y
         {
-            get { return firstname; }
-            set { firstname = value; }
+            get { return y; }
+            set { y = value; }
+        }
+
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
         }
         #endregion
 
@@ -41,7 +48,7 @@ namespace WpfApp2.Models
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Account()
+        public Cell()
         {
 
         }
