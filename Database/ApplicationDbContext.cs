@@ -62,6 +62,13 @@ namespace WpfApp2.Database
                 this.Database.Create();
             }
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Properties<DateTime>()
+                .Configure(c => c.HasColumnType("datetime2"));
+        }
         #endregion
 
         #region Events
