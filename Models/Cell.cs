@@ -7,7 +7,7 @@ using WpfApp2.Database.BaseEntity;
 
 namespace WpfApp2.Models
 {
-    public class Cell : DatabaseEntity
+    public class Cell : DatabaseEntity, ICoordinate
     {
         #region StaticVariables
         #endregion

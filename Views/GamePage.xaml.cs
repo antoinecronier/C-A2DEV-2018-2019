@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApp2.Models;
 using WpfApp2.UserControls;
+using WpfApp2.Utils;
 using WpfApp2.ViewModels;
 
 namespace WpfApp2.Views
@@ -70,21 +71,26 @@ namespace WpfApp2.Views
         #endregion
 
         #region Functions
-        public void CreateGrid(Player player)
+        public void InitGame(Player player)
         {
             this.Player = player;
+            this.CreateGrid(player, this.gameGridP1);
+            this.CreateGrid(this.GameViewModel.Game.Players.Single(p => p != player), this.gameGridP2);
+        }
 
-            this.gameGrid.ColumnDefinitions.Clear();
-            this.gameGrid.RowDefinitions.Clear();
+        public void CreateGrid(Player player, Grid grid)
+        {
+            grid.ColumnDefinitions.Clear();
+            grid.RowDefinitions.Clear();
 
             for (int i = 0; i < this.GameViewModel.Game.Width; i++)
             {
-                this.gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
             for (int i = 0; i < this.GameViewModel.Game.Height; i++)
             {
-                this.gameGrid.RowDefinitions.Add(new RowDefinition());
+                grid.RowDefinitions.Add(new RowDefinition());
             }
 
             for (int i = 0; i < this.GameViewModel.Game.Width; i++)
@@ -100,7 +106,18 @@ namespace WpfApp2.Views
                     Grid.SetRow(cellUc, i);
                     Grid.SetColumn(cellUc, j);
 
-                    this.gameGrid.Children.Add(cellUc);
+                    foreach (var ship in this.GameViewModel.Game.Players.Single(p => p == player).Ships)
+                    {
+                        foreach (var cell in ship.Cells)
+                        {
+                            if (cell.X == j && cell.Y == i)
+                            {
+                                cellUc.ImagePath = ImageByState.GetImage(State.SHIP);
+                            }
+                        }
+                    }
+
+                    grid.Children.Add(cellUc);
                 }
             }
         }
@@ -158,5 +175,10 @@ namespace WpfApp2.Views
             }
         }
         #endregion
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            (this.Parent as Window).Content = new SetupGamePage();
+        }
     }
 }

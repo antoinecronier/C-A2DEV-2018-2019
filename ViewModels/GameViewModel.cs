@@ -137,13 +137,48 @@ namespace WpfApp2.ViewModels
 
         public void SetShip(int y, int x, Direction direction, Ship currentSelection, Player player)
         {
-            for (int i = 0; i < currentSelection.Height; i++)
+            switch (direction)
             {
-                for (int j = 0; j < currentSelection.Width; j++)
-                {
-                    currentSelection.Cells.Add(new Cell(i,j,State.SHIP));
-                }
+                case Direction.TOP:
+                    for (int j = x; j < x + currentSelection.Height; j++)
+                    {
+                        for (int i = y; i > y - currentSelection.Width; i--)
+                        {
+                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                        }
+                    }
+                    break;
+                case Direction.BOTTOM:
+                    for (int j = x; j < x + currentSelection.Height; j++)
+                    {
+                        for (int i = y; i < y + currentSelection.Width; i++)
+                        {
+                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                        }
+                    }
+                    break;
+                case Direction.RIGHT:
+                    for (int j = x; j < x + currentSelection.Width; j++)
+                    {
+                        for (int i = y; i < y + currentSelection.Height; i++)
+                        {
+                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                        }
+                    }
+                    break;
+                case Direction.LEFT:
+                    for (int j = x; j > x - currentSelection.Width; j--)
+                    {
+                        for (int i = y; i < y + currentSelection.Height; i++)
+                        {
+                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
+
             this.Game.Players.Single(p => p == player).Ships.Add(currentSelection);
         }
 

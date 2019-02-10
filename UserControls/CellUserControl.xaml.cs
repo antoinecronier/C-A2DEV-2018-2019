@@ -13,13 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp2.Models;
 
 namespace WpfApp2.UserControls
 {
     /// <summary>
     /// Logique d'interaction pour UserControl1.xaml
     /// </summary>
-    public partial class CellUserControl : UserControl, INotifyPropertyChanged
+    public partial class CellUserControl : UserControl, INotifyPropertyChanged, ICoordinate
     {
         #region StaticVariables
         #endregion

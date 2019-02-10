@@ -5,12 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp2.Views"
       xmlns:uc="clr-namespace:WpfApp2.UserControls"
-      mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="800"
+      mc:Ignorable="d"
       Title="Game">
 
     <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5*"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="5*"/>
             <ColumnDefinition/>
@@ -19,8 +20,12 @@
             <RowDefinition/>
             <RowDefinition Height="5*"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="gameGrid" Grid.Row="1" Grid.Column="1"></Grid>
+        <Grid x:Name="gameGridP1" Grid.Row="1" Grid.Column="1"></Grid>
+        <Grid x:Name="gameGridP2" Grid.Row="1" Grid.Column="3"></Grid>
+
+        <Button x:Name="backBtn"  Grid.Row="3" Grid.Column="2" Click="BackBtn_Click">Back</Button>
     </Grid>
 </Page>

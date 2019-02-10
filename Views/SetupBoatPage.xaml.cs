@@ -207,49 +207,65 @@ namespace WpfApp2.Views
                         switch (direction)
                         {
                             case Direction.TOP:
-                                for (int i = this.LastCellClicked.Y; i > this.LastCellClicked.Y - this.CurrentSelection.Width; i--)
+
+                                foreach (var item in this.mapGrid.Children)
                                 {
-                                    foreach (var item in this.mapGrid.Children)
+                                    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Height; j++)
                                     {
-                                        if ((item as CellUserControl).Y == i && (item as CellUserControl).X == this.LastCellClicked.X)
+                                        for (int i = this.LastCellClicked.Y; i > this.LastCellClicked.Y - this.CurrentSelection.Width; i--)
                                         {
-                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                            {
+                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            }
                                         }
                                     }
                                 }
                                 break;
                             case Direction.BOTTOM:
-                                for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Width; i++)
+
+                                foreach (var item in this.mapGrid.Children)
                                 {
-                                    foreach (var item in this.mapGrid.Children)
+                                    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Height; j++)
                                     {
-                                        if ((item as CellUserControl).Y == i && (item as CellUserControl).X == this.LastCellClicked.X)
+                                        for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Width; i++)
                                         {
-                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                            {
+                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            }
                                         }
                                     }
                                 }
                                 break;
                             case Direction.RIGHT:
-                                for (int i = this.LastCellClicked.X; i < this.LastCellClicked.X + this.CurrentSelection.Width; i++)
+
+                                foreach (var item in this.mapGrid.Children)
                                 {
-                                    foreach (var item in this.mapGrid.Children)
+                                    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Width; j++)
                                     {
-                                        if ((item as CellUserControl).Y == this.LastCellClicked.Y && (item as CellUserControl).X == i)
+                                        for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Height; i++)
                                         {
-                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                            {
+                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            }
                                         }
                                     }
                                 }
                                 break;
                             case Direction.LEFT:
-                                for (int i = this.LastCellClicked.X; i > this.LastCellClicked.X - this.CurrentSelection.Width; i--)
+
+                                foreach (var item in this.mapGrid.Children)
                                 {
-                                    foreach (var item in this.mapGrid.Children)
+                                    for (int j = this.LastCellClicked.X; j > this.LastCellClicked.X - this.CurrentSelection.Width; j--)
                                     {
-                                        if ((item as CellUserControl).Y == this.LastCellClicked.Y && (item as CellUserControl).X == i)
+                                        for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Height; i++)
                                         {
-                                            (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                            {
+                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                            }
                                         }
                                     }
                                 }
@@ -288,7 +304,7 @@ namespace WpfApp2.Views
 
                             GamePage page = new GamePage();
                             page.GameViewModel = this.GameViewModel;
-                            page.CreateGrid(this.Player);
+                            page.InitGame(this.Player);
                             (this.Parent as Window).Content = page;
                         }
                     }

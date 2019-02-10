@@ -66,6 +66,7 @@
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\ICoordinate.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerType.cs" />
     <Compile Include="Models\Ship.cs" />
