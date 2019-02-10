@@ -153,10 +153,9 @@ namespace WpfApp2.Views
                 for (int j = 0; j < mapHeight; j++)
                 {
                     CellUserControl cellUc = new CellUserControl();
-                    cellUc.X = j;
-                    cellUc.Y = i;
-                    //cellUc.ImagePath = ;
-                    //cellUc.SoundPath = ;
+                    cellUc.X = i;
+                    cellUc.Y = j;
+
                     cellUc.CellButton.Click += CellButton_Click;
 
                     Grid.SetRow(cellUc,i);
@@ -203,90 +202,8 @@ namespace WpfApp2.Views
                     if (this.LastCellClicked != null && this.GameViewModel.CheckCoordinateForShip(this.LastCellClicked.Y, this.LastCellClicked.X, direction, this.CurrentSelection, this.Player))
                     {
                         this.GameViewModel.SetShip(this.LastCellClicked.Y, this.LastCellClicked.X, direction, this.CurrentSelection, this.Player);
-
-                        switch (direction)
-                        {
-                            case Direction.TOP:
-
-                                foreach (var item in this.mapGrid.Children)
-                                {
-                                    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Height; j++)
-                                    {
-                                        for (int i = this.LastCellClicked.Y; i > this.LastCellClicked.Y - this.CurrentSelection.Width; i--)
-                                        {
-                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
-                                            {
-                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case Direction.BOTTOM:
-
-                                foreach (var item in this.mapGrid.Children)
-                                {
-                                    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Height; j++)
-                                    {
-                                        for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Width; i++)
-                                        {
-                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
-                                            {
-                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case Direction.RIGHT:
-
-                                foreach (var item in this.mapGrid.Children)
-                                {
-                                    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Width; j++)
-                                    {
-                                        for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Height; i++)
-                                        {
-                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
-                                            {
-                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case Direction.LEFT:
-
-                                foreach (var item in this.mapGrid.Children)
-                                {
-                                    for (int j = this.LastCellClicked.X; j > this.LastCellClicked.X - this.CurrentSelection.Width; j--)
-                                    {
-                                        for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Height; i++)
-                                        {
-                                            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
-                                            {
-                                                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                        //for (int i = this.LastCellClicked.Y; i < this.LastCellClicked.Y + this.CurrentSelection.Height; i++)
-                        //{
-                        //    for (int j = this.LastCellClicked.X; j < this.LastCellClicked.X + this.CurrentSelection.Width; j++)
-                        //    {
-                        //        foreach (var item in this.mapGrid.Children)
-                        //        {
-                        //            if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
-                        //            {
-                        //                (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
-                        //            }
-                        //        }
-                        //    }
-                        //}
-
+                        PrintShip(direction, this.LastCellClicked.X, this.LastCellClicked.Y, this.CurrentSelection.Height, this.CurrentSelection.Width);
+                        
                         this.Ships.Remove(this.CurrentSelection);
 
                         if (this.Ships.Count <= 0)
@@ -308,14 +225,91 @@ namespace WpfApp2.Views
                             (this.Parent as Window).Content = page;
                         }
                     }
-                    
-                    this.LastCellClicked = null;
+
+                    if (this.LastCellClicked != null)
+                    {
+                        this.LastCellClicked.ImagePath = ImageByState.GetImage(State.RETRY);
+                        this.LastCellClicked = null;
+                    }
                 }
                 else
                 {
                     this.LastCellClicked = cellUc;
                     cellUc.ImagePath = ImageByState.GetImage(State.SHIP);
                 }
+            }
+        }
+
+        private void PrintShip(Direction direction, int width, int height, uint mapHeight, uint mapWidth)
+        {
+            switch (direction)
+            {
+                case Direction.TOP:
+
+                    foreach (var item in this.mapGrid.Children)
+                    {
+                        for (int j = width; j < width + mapHeight; j++)
+                        {
+                            for (int i = height; i > height - mapWidth; i--)
+                            {
+                                if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                {
+                                    (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case Direction.BOTTOM:
+
+                    foreach (var item in this.mapGrid.Children)
+                    {
+                        for (int j = width; j < width + mapHeight; j++)
+                        {
+                            for (int i = height; i < height + mapWidth; i++)
+                            {
+                                if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                {
+                                    (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case Direction.RIGHT:
+
+                    foreach (var item in this.mapGrid.Children)
+                    {
+                        for (int j = width; j < width + mapWidth; j++)
+                        {
+                            for (int i = height; i < height + mapHeight; i++)
+                            {
+                                if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                {
+                                    (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case Direction.LEFT:
+
+                    foreach (var item in this.mapGrid.Children)
+                    {
+                        for (int j = width; j > width - mapWidth; j--)
+                        {
+                            for (int i = height; i < height + mapHeight; i++)
+                            {
+                                if ((item as CellUserControl).Y == i && (item as CellUserControl).X == j)
+                                {
+                                    (item as CellUserControl).ImagePath = ImageByState.GetImage(State.SHIP);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 

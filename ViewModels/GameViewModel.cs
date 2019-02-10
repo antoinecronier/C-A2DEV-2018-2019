@@ -78,52 +78,50 @@ namespace WpfApp2.ViewModels
             {
                 foreach (var cell in ship.Cells)
                 {
-                    for (int i = 0; i < currentSelection.Width; i++)
+                    if (cell.X == x && cell.Y == y)
                     {
-                        for (int j = 0; j < currentSelection.Height; j++)
-                        {
-                            switch (direction)
-                            {
-                                case Direction.TOP:
-                                    if (x + i <= 0 || y + j <= 0 || (cell.X == x + j && cell.Y == y + j))
-                                    {
-                                        result = false;
-                                        break;
-                                    }
-                                    break;
-                                case Direction.BOTTOM:
-                                    if (x + i > this.Game.Width || y + j > this.Game.Height || (cell.X == x + j && cell.Y == y + j))
-                                    {
-                                        result = false;
-                                        break;
-                                    }
-                                    break;
-                                case Direction.RIGHT:
-                                    if (x + i > this.Game.Width || y + j > this.Game.Height || (cell.X == x + j && cell.Y == y + j))
-                                    {
-                                        result = false;
-                                        break;
-                                    }
-                                    break;
-                                case Direction.LEFT:
-                                    if (x + i <= 0 || y + j <= 0 || (cell.X == x + j && cell.Y == y + j))
-                                    {
-                                        result = false;
-                                        break;
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        if (!result)
-                        {
-                            break;
-                        }
-                    }
-                    if (!result)
-                    {
+                        result = false;
                         break;
+                    }
+                    else
+                    {
+                        switch (direction)
+                        {
+                            case Direction.TOP:
+                                if (x + currentSelection.Width > this.Game.Width
+                                    || y - currentSelection.Height <= 0)
+                                {
+                                    result = false;
+                                    break;
+                                }
+                                break;
+                            case Direction.BOTTOM:
+                                if (x + currentSelection.Width > this.Game.Width
+                                    || y + currentSelection.Height > this.Game.Height)
+                                {
+                                    result = false;
+                                    break;
+                                }
+                                break;
+                            case Direction.RIGHT:
+                                if (x + currentSelection.Width > this.Game.Width
+                                    || y + currentSelection.Height > this.Game.Height)
+                                {
+                                    result = false;
+                                    break;
+                                }
+                                break;
+                            case Direction.LEFT:
+                                if (x - currentSelection.Width <= 0
+                                    || y + currentSelection.Height > this.Game.Height)
+                                {
+                                    result = false;
+                                    break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
                 if (!result)
