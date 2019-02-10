@@ -222,8 +222,9 @@ namespace WpfApp2.ViewModels
             return result;
         }
 
-        public void PlayOthers(Player player)
+        public ICoordinate PlayOthers(Player player)
         {
+            ICoordinate cell = new Cell();
             Random rand = new Random();
 
             foreach (var item in this.Game.Players.FindAll(p => p != player))
@@ -236,7 +237,12 @@ namespace WpfApp2.ViewModels
                     x = rand.Next(0, (int)this.Game.Width);
                     y = rand.Next(0, (int)this.Game.Height);
                 }
+
+                cell.X = x;
+                cell.Y = y;
             }
+
+            return cell;
         }
 
         public Boolean CheckGameEnded(Player player)

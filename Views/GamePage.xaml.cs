@@ -151,13 +151,26 @@ namespace WpfApp2.Views
                     (this.Parent as Window).Content = page;
                 }
 
-                this.GameViewModel.PlayOthers(this.Player);
+                ICoordinate coordinate =  this.GameViewModel.PlayOthers(this.Player);
+                this.ChangeCellState(coordinate, this.gameGridP1);
 
                 if (this.GameViewModel.CheckGameLoosed(this.Player))
                 {
                     MessageBox.Show("Game Loosed");
                     SetupGamePage page = new SetupGamePage();
                     (this.Parent as Window).Content = page;
+                }
+            }
+        }
+
+        private void ChangeCellState(ICoordinate coordinate, Grid grid)
+        {
+            foreach (var item in grid.Children)
+            {
+                if (coordinate.X == (item as CellUserControl).X 
+                    && coordinate.Y == (item as CellUserControl).Y)
+                {
+                    (item as CellUserControl).ImagePath = ImageByState.GetImage(State.FIRED_SHIP);
                 }
             }
         }
