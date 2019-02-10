@@ -156,6 +156,8 @@ namespace WpfApp2.Views
                     cellUc.X = j;
                     cellUc.Y = i;
 
+                    //cellUc.cellBtn.Content = "x" + j + "y" + i;
+
                     cellUc.CellButton.Click += CellButton_Click;
 
                     Grid.SetColumn(cellUc, i);
@@ -172,7 +174,7 @@ namespace WpfApp2.Views
         {
             CellUserControl cellUc = ((e.Source as Button).Parent as CellUserControl);
 
-            MessageBox.Show("X:" + cellUc.X + "Y:"+ cellUc.Y);
+            //MessageBox.Show("X:" + cellUc.X + "Y:"+ cellUc.Y);
 
             if (this.CurrentSelection != null)
             {
