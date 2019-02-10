@@ -74,59 +74,56 @@ namespace WpfApp2.ViewModels
         {
             Boolean result = true;
 
-            foreach (var ship in this.Game.Players.Single(p => p == player).Ships)
+            switch (direction)
             {
-                foreach (var cell in ship.Cells)
-                {
-                    if (cell.X == x && cell.Y == y)
+                case Direction.TOP:
+                    if (x - currentSelection.Width > this.Game.Width
+                        || y - currentSelection.Height < 0)
                     {
                         result = false;
-                        break;
                     }
-                    else
+                    break;
+                case Direction.BOTTOM:
+                    if (x + currentSelection.Height > this.Game.Width
+                        || y + currentSelection.Width > this.Game.Height)
                     {
-                        switch (direction)
+                        result = false;
+                    }
+                    break;
+                case Direction.RIGHT:
+                    if (x + currentSelection.Width > this.Game.Width
+                        || y + currentSelection.Height > this.Game.Height)
+                    {
+                        result = false;
+                    }
+                    break;
+                case Direction.LEFT:
+                    if (x - currentSelection.Width < 0
+                        || y + currentSelection.Height > this.Game.Height)
+                    {
+                        result = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (result)
+            {
+                foreach (var ship in this.Game.Players.Single(p => p == player).Ships)
+                {
+                    foreach (var cell in ship.Cells)
+                    {
+                        if (cell.X == x && cell.Y == y)
                         {
-                            case Direction.TOP:
-                                if (x + currentSelection.Width > this.Game.Width
-                                    || y - currentSelection.Height <= 0)
-                                {
-                                    result = false;
-                                    break;
-                                }
-                                break;
-                            case Direction.BOTTOM:
-                                if (x + currentSelection.Width > this.Game.Width
-                                    || y + currentSelection.Height > this.Game.Height)
-                                {
-                                    result = false;
-                                    break;
-                                }
-                                break;
-                            case Direction.RIGHT:
-                                if (x + currentSelection.Width > this.Game.Width
-                                    || y + currentSelection.Height > this.Game.Height)
-                                {
-                                    result = false;
-                                    break;
-                                }
-                                break;
-                            case Direction.LEFT:
-                                if (x - currentSelection.Width <= 0
-                                    || y + currentSelection.Height > this.Game.Height)
-                                {
-                                    result = false;
-                                    break;
-                                }
-                                break;
-                            default:
-                                break;
+                            result = false;
+                            break;
                         }
                     }
-                }
-                if (!result)
-                {
-                    break;
+                    if (!result)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -142,7 +139,7 @@ namespace WpfApp2.ViewModels
                     {
                         for (int i = y; i > y - currentSelection.Width; i--)
                         {
-                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                            currentSelection.Cells.Add(new Cell(j, i, State.SHIP));
                         }
                     }
                     break;
@@ -151,7 +148,7 @@ namespace WpfApp2.ViewModels
                     {
                         for (int i = y; i < y + currentSelection.Width; i++)
                         {
-                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                            currentSelection.Cells.Add(new Cell(j, i, State.SHIP));
                         }
                     }
                     break;
@@ -160,7 +157,7 @@ namespace WpfApp2.ViewModels
                     {
                         for (int i = y; i < y + currentSelection.Height; i++)
                         {
-                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                            currentSelection.Cells.Add(new Cell(j, i, State.SHIP));
                         }
                     }
                     break;
@@ -169,7 +166,7 @@ namespace WpfApp2.ViewModels
                     {
                         for (int i = y; i < y + currentSelection.Height; i++)
                         {
-                            currentSelection.Cells.Add(new Cell(i, j, State.SHIP));
+                            currentSelection.Cells.Add(new Cell(j, i, State.SHIP));
                         }
                     }
                     break;

@@ -153,13 +153,13 @@ namespace WpfApp2.Views
                 for (int j = 0; j < mapHeight; j++)
                 {
                     CellUserControl cellUc = new CellUserControl();
-                    cellUc.X = i;
-                    cellUc.Y = j;
+                    cellUc.X = j;
+                    cellUc.Y = i;
 
                     cellUc.CellButton.Click += CellButton_Click;
 
-                    Grid.SetRow(cellUc,i);
-                    Grid.SetColumn(cellUc, j);
+                    Grid.SetColumn(cellUc, i);
+                    Grid.SetRow(cellUc,j);
 
                     this.mapGrid.Children.Add(cellUc);
                 }
@@ -171,6 +171,8 @@ namespace WpfApp2.Views
         private void CellButton_Click(object sender, RoutedEventArgs e)
         {
             CellUserControl cellUc = ((e.Source as Button).Parent as CellUserControl);
+
+            MessageBox.Show("X:" + cellUc.X + "Y:"+ cellUc.Y);
 
             if (this.CurrentSelection != null)
             {

@@ -103,8 +103,8 @@ namespace WpfApp2.Views
 
                     cellUc.CellButton.Click += CellButton_Click;
 
-                    Grid.SetRow(cellUc, i);
-                    Grid.SetColumn(cellUc, j);
+                    Grid.SetRow(cellUc, j);
+                    Grid.SetColumn(cellUc, i);
 
                     foreach (var ship in this.GameViewModel.Game.Players.Single(p => p == player).Ships)
                     {
